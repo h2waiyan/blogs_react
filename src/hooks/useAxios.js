@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import React from "react";
 import axios from "axios";
 
 const useAxios = (dataUrl) => {
   const [data, setData] = useState([]);
-  const [fectchError, setFectchError] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -20,10 +19,10 @@ const useAxios = (dataUrl) => {
 
         if (isMounted) {
           setData(response.data);
-          setFectchError(null);
+          setFetchError(null);
         }
       } catch (err) {
-        setFectchError(err.message);
+        setFetchError(err.message);
         setData([]);
       } finally {
         isMounted && setTimeout(() => setIsLoading(false), 200);
@@ -41,7 +40,7 @@ const useAxios = (dataUrl) => {
     return cleanUp;
   }, [dataUrl]);
 
-  return { data, fectchError, isLoading };
+  return { data, fetchError, isLoading };
 };
 
 export default useAxios;
